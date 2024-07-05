@@ -48,6 +48,11 @@ div.link-button-cover a:hover {
 	background-color: #028575;	
 	min-width: 60px;	
 }
+.btn-secondary {
+	border: 1px solid #028575;
+	background-color: #028575;
+	min-width: 60px;	
+}
 .btn-dark {
 	border: 1px solid #028575;
 	background-color: #028575;	

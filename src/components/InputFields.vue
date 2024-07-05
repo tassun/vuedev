@@ -115,7 +115,7 @@
   </div>
 </template>
 <style>
-  #entrydialoglayer { background-color: #FBE4D5; padding: 10px; margin-left: 0px; margin-right: 0px; margin-top: 10px; margin-bottom: 10px; }
+  #entrydialoglayer { background-color: #E8FAF2; padding: 10px; margin-left: 0px; margin-right: 0px; margin-top: 10px; margin-bottom: 10px; }
 </style>
 <script>
 import $ from "jquery";

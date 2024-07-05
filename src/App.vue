@@ -122,7 +122,7 @@
   
 </template>
 <style>
-#mainpanel { background-color: #FBE4D5; padding: 10px; margin-top: 10px; margin-bottom: 10px; }
+#mainpanel { background-color: #E8FAF2; padding: 10px; margin-top: 10px; margin-bottom: 10px; }
 .btn-toggle { min-width: 100px; margin-top: 30px; }
 .btn-normal { min-width: 100px; }
 .btn-space { margin-top: 30px; }
