@@ -266,18 +266,23 @@ export function ensureTableSetting(settings) {
     return headers;
 }
 export function formatDataTable(data,field) {
-    if(field) {
-        if(field.type=="DECIMAL") { 
-          return formatFloating(data,field.decimal!==undefined?field.decimal:2); 
-        }
-        else if(field.type=="DATE") { 
-          let date = Utilities.parseDate(data);
-          if(date) return Utilities.formatDate(date);
-        }
-        else if(field.type=="DATETIME") { 
-          let date = Utilities.parseDate(data);
-          if(date) return Utilities.formatDateTime(date);
-        }
-      }
-      return data;
+	try {
+		if(field) {
+			if(field.type=="DECIMAL") { 
+				return formatFloating(data,field.decimal!==undefined?field.decimal:2); 
+			}
+			else if(field.type=="DATE") {                       
+				let date = Utilities.parseDate(data);
+				if(date) return Utilities.formatDate(date);
+			}
+			else if(field.type=="DATETIME") { 
+				let date = Utilities.parseDate(data);
+				if(date) return Utilities.formatDateTime(date);
+			}
+		}
+		return data;
+	} catch(ex) {
+		console.error(ex);
+		return data;
+	}
 }

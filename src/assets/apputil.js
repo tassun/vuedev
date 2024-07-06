@@ -66,6 +66,16 @@ export function parseErrorThrown(xhr,status,errorThrown) {
 	if(!errorThrown || errorThrown.trim().length==0) errorThrown = "Unknown error or network error";
 	return errorThrown;
 }
+export function detectErrorResponse(data) {
+	if(typeof data === "string") {
+		try { data = JSON.parse(data); } catch(ex) { console.error(ex); }
+	}
+	if(data?.head?.errorflag=="Y") {
+		alertmsg(data.head.errordesc);
+		return true;
+	}
+	return false;
+}
 export function successbox(callback,params) {
 	let title = getMessageCode("fsinfo",null,"Information");
 	alertbox("QS0004",callback,null,params,null,title,"fa fa-info-circle");
@@ -247,9 +257,6 @@ export function startApplication(pid) {
 		$.fn.modal.Constructor.Default.backdrop = "static";
 		$.fn.modal.Constructor.Default.keyboard = false;
 	} catch(ex) { console.error(ex);  }
-	try {
-		setupScreenControls();
-	} catch(ex) { console.error(ex); }
 }
 export function setupScreenControls(aform) {
 	console.log("setupScreenControls ...");

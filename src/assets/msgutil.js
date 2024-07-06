@@ -17,7 +17,7 @@ export function getMessageCode(errcode, params, defaultMessage) {
 	return defaultMessage?defaultMessage:errcode;
 }
 
-function replaceString(str, arrStr){                           
+export function replaceString(str, arrStr){                           	
 	if(arrStr) {
 		let regex = /%s/;
 		for(let i=0;i<arrStr.length;i++){

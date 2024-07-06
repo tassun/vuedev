@@ -1,6 +1,9 @@
 <template>
   <input ref="input" type="text" v-model="model" :id="id" :name="name" :class="inputClasses" :disabled="disabled" v-bind="$attrs" />
 </template>
+<style>
+.iint { text-align: right; }
+</style>
 <script>
 import $ from "jquery";
 import { getControlClasses, inputNumberOnly }  from '@/assets/ctrlutil.js'

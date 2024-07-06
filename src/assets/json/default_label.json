@@ -2,6 +2,8 @@
 	{
 		"language": "TH",
 		"label": [
+			{"name": "english_lang", "value": "อังกฤษ"},
+			{"name": "thai_lang", "value": "ไทย"},
 			{"name": "title_new", "value": "สร้างใหม่"},
 			{"name": "title_edit", "value": "แก้ไข"},
 			{"name": "title_view", "value": "มอง"},
@@ -27,7 +29,7 @@
 			{"name": "remove_button", "value": "ลบ"},
 			{"name": "upload_button", "value": "อัพโหลด"},
 			{"name": "consend_button", "value": "ส่งแบบสอบถาม"},
-			{"name": "version_label", "value": "แสดงรุ่น"},
+			{"name": "version_label", "value": "รุ่น"},
 			{"name": "action_label", "value": " "},
 			{"name": "active_label", "value": "ใช้งาน"},
 			{"name": "inactive_label", "value": "ไม่ใช้งาน"},
@@ -43,6 +45,8 @@
 	{
 		"language": "EN",
 		"label": [
+			{"name": "english_lang", "value": "English"},
+			{"name": "thai_lang", "value": "Thai"},
 			{"name": "title_new", "value": "Add New"},
 			{"name": "title_edit", "value": "Edit"},
 			{"name": "title_view", "value": "View"},
@@ -68,7 +72,7 @@
 			{"name": "remove_button", "value": "Remove"},
 			{"name": "upload_button", "value": "Upload"},
 			{"name": "consend_button", "value": "Send"},
-			{"name": "version_label", "value": "View Version"},
+			{"name": "version_label", "value": "Version"},
 			{"name": "action_label", "value": " "},
 			{"name": "active_label", "value": "Active"},
 			{"name": "inactive_label", "value": "Inactive"},

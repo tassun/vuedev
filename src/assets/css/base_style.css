@@ -448,3 +448,5 @@ a:hover { text-decoration: none; }
 .fa-hidden { display: none; }
 .btn-cover-layer { margin-right: 10px; }
 #fswaitlayer { display:none; position:absolute; left:1px; top:1px; z-Index:9999; }
+.btn-ctrl { margin-top: 10px; margin-right: 10px; min-width: 100px; }
+.btn-span { padding-left: 5px; }

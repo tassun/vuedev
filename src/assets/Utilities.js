@@ -317,6 +317,9 @@ class Utilities {
             if (this.isString(dataValue)) {
                 let datestr = ("" + dataValue).trim();
                 if (datestr != "") {
+                    if (datestr.indexOf("T") > 0 && datestr.indexOf("Z") > 0) {
+                        try { const dateInstance = new Date(datestr); if(dateInstance) return dateInstance; } catch(ex) { console.error(ex); }
+                    }
                     let result = undefined;
                     let separator = " ";
                     if (datestr.indexOf("T") > 0)

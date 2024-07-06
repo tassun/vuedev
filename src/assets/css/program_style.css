@@ -1,4 +1,6 @@
 a.viewversion-linker { padding-left: 10px; }
+a.pagemenu-linker { padding-left: 10px; }
+hr.menu-separator { margin-top: 8px; margin-bottom: 2px; }
 #ptmainpager { padding-bottom: 40px; }
 #buttonfooterbar { padding-top: 5px; }
 hr.entry-horizontal { 
@@ -90,9 +92,8 @@ div.entry-key-layer { padding: 5px; }
 .pt-page th a { color: white; }
 .pt-page th a:hover, a:focus { color: #FF9933; }
 
-.input-group-container { width: 90% }
-
-div.fa-portal-area { margin-left:15px; padding-top: 10px; padding-left: 5px; padding-bottom:15px; }
+/*.input-group-container { width: 90% }*/
+/*div.fa-portal-area { margin-left:15px; padding-top: 10px; padding-left: 5px; padding-bottom:15px; }*/
 div.fa-list-panel { margin-top: 8px; }
 .fschaptertablelayer { text-align: center; }
 .fschaptertable { margin: auto; }

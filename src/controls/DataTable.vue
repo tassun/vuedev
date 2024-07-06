@@ -3,14 +3,14 @@
 	<thead class="data-table-header">
 		<tr>
       <template v-if="hasSequence">
-			<th class="text-center th-sequence"><label>{{ label[headers.sequence.label] }}</label></th>
+			<th class="text-center th-sequence"><label>{{ labels[headers.sequence.label] }}</label></th>
       </template>
       <template v-for="(item,index) in headers.columns" :key="index">
         <template v-if="item.sorter">
-          <th class="text-center th-data"><A href="javascript:void(0)" class="alink-sorter fa-data-sort" @click="dataSort(item)"><label v-html="label[item.label]"></label></A></th>
+          <th class="text-center th-data"><A href="javascript:void(0)" class="alink-sorter fa-data-sort" @click="dataSort(item)"><label v-html="labels[item.label]"></label></A></th>
         </template>
         <template v-else>
-          <th class="text-center th-data"><label v-html="label[item.label]"></label></th>
+          <th class="text-center th-data"><label v-html="labels[item.label]"></label></th>
         </template>
       </template>
       <template v-if="hasActions">
@@ -50,7 +50,7 @@
     <template v-if="recordNotFound">
         <tr>
             <td class="text-center" :colspan="columnCount">
-                {{ label.record_notfound }}
+                {{ labels.record_notfound }}
             </td>
         </tr>
     </template>
@@ -88,14 +88,13 @@ export default {
     formater: Function,
   },
   setup(props) {
-    const label = ref({ ...props.labels });
     const datas = ref({ ...props.dataset }); 
     const page = new Paging(props.dataset?.offsets);
     const sorting = ref({});
     const setting = ensureTableSetting(props.settings);
     const headers = ref(setting); 
     console.info("setup: table settings",setting);
-    return { label, datas, page, sorting, headers };
+    return { datas, page, sorting, headers };
   },
   computed: {
     hasSequence() {
@@ -123,9 +122,6 @@ export default {
         this.datas = {...newData};
         this.page.reset(newData?.offsets);
       }
-    },
-    setLabel(newLabel) {
-      if(newLabel) this.label = {...newLabel};
     },
     dataSelect(item,action='edit') {
       this.$emit('data-select', item,action);
