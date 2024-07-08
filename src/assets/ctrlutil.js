@@ -253,11 +253,11 @@ export function ensureTableSetting(settings) {
             let item = {...header_action, ...act};
             if(!item.css && "button"==item.type) {
                 if("edit"==item.action) {
-                    item.css = "btn-edit fa-data-edit";
+                    item.css = "btn-edit fa-data-edit fa-btn fa fa-pencil";
                 } else if("delete"==item.action) {
-                    item.css = "btn-delete fa-data-delete";
+                    item.css = "btn-delete fa-data-delete fa-btn fa fa-trash";
                 } else if("view"==item.action) {
-                    item.css = "btn-view fa-data-view";
+                    item.css = "btn-view fa-data-view fa-btn fa fa-eye";
                 }
             }
             Object.assign(act,item);

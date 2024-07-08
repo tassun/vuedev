@@ -195,98 +195,18 @@ a.alink-sorter { color: white; cursor: pointer; }
 a.alink-sorter label { cursor: pointer; }
 a.alink-data { color: black; cursor: pointer; }
 
-.btn-edit {
-	background-image: url(../img/ic_edit.png);
-	background-repeat: no-repeat;
+.fa-btn {
 	background-color: transparent;
 	width: 17px;
 	height: 17px;
 	border: 0px;
-	cursor: pointer;
 	outline: 0;
-	background-size: 17px 17px;
-	margin: 3px;
+	margin-right: 10px;
+	font-size: 1.2rem;
 }
-
-.btn-edit:hover {
-	background-image: url(../img/ic_edit_hover.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
+.fa-btn:hover {
+	color: darkgray;
 }
-
-.btn-edit:active {
-	background-image: url(../img/ic_edit.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
-}
-
-.btn-edit:disabled {
-	background-image: url(../img/ic_edit_hover.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
-}
-
-.btn-delete {
-	background-image: url(../img/ic_trash.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
-	width: 16px;
-	height: 16px;
-	border: 0px;
-	cursor: pointer;
-	outline: 0;
-	background-size: 16px 16px;
-	margin: 3px;
-}
-
-.btn-delete:hover {
-	background-image: url(../img/ic_trash_hover.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
-}
-
-.btn-delete:active {
-	background-image: url(../img/ic_trash.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
-}
-
-.btn-delete:disabled {
-	background-image: url(../img/ic_trash_hover.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
-}
-.btn-view {
-	background-image: url(../img/ic_view.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
-	width: 17px;
-	height: 17px;
-	border: 0px;
-	cursor: pointer;
-	outline: 0;
-	background-size: 17px 17px;
-	margin: 3px;
-}
-
-.btn-view:hover {
-	background-image: url(../img/ic_view_hover.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
-}
-
-.btn-view:active {
-	background-image: url(../img/ic_view.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
-}
-
-.btn-view:disabled {
-	background-image: url(../img/ic_view_hover.png);
-	background-repeat: no-repeat;
-	background-color: transparent;
-}
-
 .row-height {
 	margin-top: 2px;
 	margin-bottom: 5px;
@@ -447,6 +367,9 @@ a:hover { text-decoration: none; }
 
 .fa-hidden { display: none; }
 .btn-cover-layer { margin-right: 10px; }
-#fswaitlayer { display:none; position:absolute; left:1px; top:1px; z-Index:9999; }
+#fswaitlayer { display:none; position:absolute; left:1px; top:1px; z-Index:9999; font-size: 50px; color: #1E90FF; }
 .btn-ctrl { margin-top: 10px; margin-right: 10px; min-width: 100px; }
 .btn-span { padding-left: 5px; }
+.img-lang { width: 30px; height: 15px; }
+.img-lang-EN { background-image: url(../img/lang/EN.png); }
+.img-lang-TH { background-image: url(../img/lang/TH.png); }

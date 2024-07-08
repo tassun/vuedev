@@ -1,33 +1,33 @@
 <!-- App.vue -->
 <template>
-  <div id="fswaitlayer"><img id="waitImage" class="waitimgclass" src="img/waiting.gif" width="50px" height="50px" alt="" /></div>
+  <div id="fswaitlayer" class="fa fa-spinner fa-spin"></div>
   <div class="pt-page pt-page-current pt-page-controller search-pager">
-    <PageHeader ref="pageHeader" :labels="label" pid="demo002" @show-version="showVersion" />
+    <PageHeader ref="pageHeader" :labels="labels" pid="demo002" version="1.0.0" @show-version="showVersion">
+      <li><a href="javascript:void(0)" @click="changeLanguage('EN')" class="pagemenu-linker"><img class="img-lang img-lang-EN" />&nbsp;{{ labels.english_lang }}</a></li>
+      <li><a href="javascript:void(0)" @click="changeLanguage('TH')" class="pagemenu-linker"><img class="img-lang img-lang-TH" />&nbsp;{{ labels.thai_lang }}</a></li>
+      <hr class="menu-separator"/>
+    </PageHeader>
     <p>Child Form</p>
-    <InputFields ref="inputFields" :labels="label" :formData="formData" :dataCategory="dataCategory" @update:formData="updateFormData" />
+    <InputFields ref="inputFields" :labels="labels" :formData="formData" :dataCategory="dataCategory" @update:formData="updateFormData" />
     <div class="row">
       <div class="col-md-2">
         <label>Main Form</label>
-      </div>
-      <div class="col-md pull-right text-right">
-        <a href="javascript:void(0)" @click="changeLanguage('EN')"><img src="img/lang/EN.png" alt="EN" class="img-lang" /></a> &nbsp;
-        <a href="javascript:void(0)" @click="changeLanguage('TH')"><img src="img/lang/TH.png" alt="TH" class="img-lang" /></a>
       </div>
     </div>
     <div id="mainpanel">
       <div class="row">
         <div class="col-height col-md-3">
-          <label for="account">{{label.account_label}}:</label>
+          <label for="account">{{labels.account_label}}:</label>
           <input type="text" v-model="localData.account" class="form-control input-md" required />
         </div>
         <div class="col-md">
-          <button @click="retrieveclick" class="btn btn-primary btn-normal btn-space"><em class="fa fa-search"></em> {{ label.retrieve_button }}</button>&nbsp;&nbsp;
-          <button @click="searchclick" class="btn btn-primary btn-normal btn-space"><em class="fa fa-search"></em> {{ label.search_button }}</button>&nbsp;&nbsp;
+          <button @click="retrieveclick" class="btn btn-primary btn-normal btn-space"><em class="fa fa-search"></em> {{ labels.retrieve_button }}</button>&nbsp;&nbsp;
+          <button @click="searchclick" class="btn btn-primary btn-normal btn-space"><em class="fa fa-search"></em> {{ labels.search_button }}</button>&nbsp;&nbsp;
         </div>
       </div>
-      <p>{{label.account_label}}: {{ localData.account }},  {{label.amount_label}}: {{ localData.amount }},  {{label.pincode_label}}: {{ localData.pincode }}</p>
-      <p>{{label.effectdate_label}}: {{ localData.effectdate }},  {{label.effecttime_label}}: {{ localData.effecttime }},  {{label.age_label}}: {{ localData.age }}, {{label.gender_label}}: {{ localData.gender }}</p>
-      <p>{{label.domestic_label}}: {{ localData.domestic }},  {{label.marrystatus_label}}: {{ localData.marrystatus }},  {{label.licenses_label}}: {{ localData.licenses }}, {{label.languages_label}}: {{ localData.languages }}</p>
+      <p>{{labels.account_label}}: {{ localData.account }},  {{labels.amount_label}}: {{ localData.amount }},  {{labels.pincode_label}}: {{ localData.pincode }}</p>
+      <p>{{labels.effectdate_label}}: {{ localData.effectdate }},  {{labels.effecttime_label}}: {{ localData.effecttime }},  {{labels.age_label}}: {{ localData.age }}, {{labels.gender_label}}: {{ localData.gender }}</p>
+      <p>{{labels.domestic_label}}: {{ localData.domestic }},  {{labels.marrystatus_label}}: {{ localData.marrystatus }},  {{labels.licenses_label}}: {{ localData.licenses }}, {{labels.languages_label}}: {{ localData.languages }}</p>
       <div class="row">
         <div class="col-md-12">
           <button @click="loadclick" class="btn btn-primary btn-normal"><em class="fa fa-bolt fa-btn-icon"></em> AJAX Load</button>&nbsp;&nbsp;
@@ -42,24 +42,24 @@
       <br/>
       <div class="row">
         <div class="col-md-4">
-          <label for="createdate">{{label.createdate_label}}:</label>
+          <label for="createdate">{{labels.createdate_label}}:</label>
           <InputDate v-model="localData.createdate" id="createdate" name="createdate" /> 
           <p>Input Date: {{localData.createdate}}</p>
         </div>
         <div class="col-md-4">
-          <label>{{label.editdate_label}}:</label>
+          <label>{{labels.editdate_label}}:</label>
           <input-date v-model="localData.editdate" class="form-control input-md" :disabled="localData.editdateDisabled" /> 
           <p>Input Date: {{localData.editdate}}</p>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3">
-          <label for="createtime">{{label.createtime_label}}:</label>
+          <label for="createtime">{{labels.createtime_label}}:</label>
           <InputTime v-model="localData.createtime" id="createtime" name="createtime" /> 
           <p>Input Time: {{localData.createtime}}</p>
         </div>
         <div class="col-md-3">
-          <label for="edittime">{{label.edittime_label}}:</label>
+          <label for="edittime">{{labels.edittime_label}}:</label>
           <input-time v-model="localData.edittime" id="edittime" :disabled="localData.edittimeDisabled" /> 
           <p>Input Time: {{localData.edittime}}</p>
         </div>
@@ -67,25 +67,25 @@
       </div>
       <div class="row">
         <div class="col-md-3">
-          <label for="assets">{{label.assets_label}}:</label>
+          <label for="assets">{{labels.assets_label}}:</label>
           <InputNumber v-model="localData.assets" id="assets" name="assets" /> 
           <p>Input Number: {{localData.assets}}</p>
         </div>
         <div class="col-md-3">
-          <label for="credit">{{label.credit_label}}:</label>
+          <label for="credit">{{labels.credit_label}}:</label>
           <InputMoney v-model="localData.credit" id="credit" name="credit" decimal="2" /> 
           <p>Input Money: {{localData.credit}}</p>
         </div>
         <div class="col-md-3">
-          <label for="passcode">{{label.passcode_label}}:</label>
+          <label for="passcode">{{labels.passcode_label}}:</label>
           <InputMask v-model="localData.passcode" id="passcode" name="passcode" picture="XXXXXXXXXX" /> 
           <p>Input Mask: {{localData.passcode}}</p>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 pull-right text-right">
-          <button @click="saveclick" class="btn btn-primary btn-normal"><em class="fa fa-save fa-btn-icon"></em>{{ label.save_button }}</button>&nbsp;&nbsp;
-          <button @click="updateclick" class="btn btn-primary btn-normal"><em class="fa fa-save fa-btn-icon"></em>{{ label.update_button }}</button>&nbsp;&nbsp;
+          <button @click="saveclick" class="btn btn-primary btn-normal"><em class="fa fa-save fa-btn-icon"></em>{{ labels.save_button }}</button>&nbsp;&nbsp;
+          <button @click="updateclick" class="btn btn-primary btn-normal"><em class="fa fa-save fa-btn-icon"></em>{{ labels.update_button }}</button>&nbsp;&nbsp;
         </div>
       </div>
     </div>
@@ -103,7 +103,7 @@
             Hello, Teleport Dialog<br/>
           </div>
           <div class="row-heighter modal-footer" >
-            <input type="button" class="btn btn-dark btn-sm" data-dismiss="modal" :value="label.cancel_button"/>
+            <input type="button" class="btn btn-dark btn-sm" data-dismiss="modal" :value="labels.cancel_button"/>
           </div>
         </div>
       </div>
@@ -113,7 +113,7 @@
   <div id="ptsearchpager" class="pt-page pt-page-current pt-page-controller search-pager">
     <div id="searchpanel" class="panel-body">
       <div id="listpanel" class="table-responsive fa-list-panel">
-        <DataTable ref="dataTable" :settings="tableSettings" :labels="label" :dataset="dataset" @data-select="dataSelected" @data-sort="dataSorted" :formater="formatData" />
+        <DataTable ref="dataTable" :settings="tableSettings" :labels="labels" :dataset="dataset" @data-select="dataSelected" @data-sort="dataSorted" :formater="formatData" />
         <DataPaging ref="dataPaging" :settings="pagingSettings" @page-select="pageSelected" />
       </div>
     </div>
@@ -126,7 +126,6 @@
 .btn-toggle { min-width: 100px; margin-top: 30px; }
 .btn-normal { min-width: 100px; }
 .btn-space { margin-top: 30px; }
-.img-lang { width: 30px; height: 15px; }
 </style>
 <script>
 import { ref } from 'vue';
@@ -183,7 +182,7 @@ export default {
       languages: [{key: "TH", text: "Thai"},{key: "EN", text: "English"},{key: "CN", text: "Chinese"},{key: "KR", text: "Korea"},{key: "JP", text: "Japan"}]
     };
     let localData = ref({...formData});
-    let label = ref(getLabelModel());
+    let labels = ref(getLabelModel());
     let paging = new Paging();
     let pagingSettings = paging.setting;
     let filters = {};
@@ -202,7 +201,7 @@ export default {
           {type: "button", action: "delete"},
         ],
     }
-    return { label, localData, formData, dataCategory, tableSettings, pagingSettings, paging, filters };
+    return { labels, localData, formData, dataCategory, tableSettings, pagingSettings, paging, filters };
   },
   mounted() {
     console.log("App: on mounted ...");
@@ -247,10 +246,8 @@ export default {
     },
     changeLanguage(lang) {
       let labelModel = getLabelModel(lang);
-      this.label = labelModel;
-      this.$refs.pageHeader.setLabel(labelModel);
+      this.labels = labelModel;
       this.$refs.inputFields.setLabel(labelModel);
-      this.$refs.dataTable.setLabel(labelModel);
     },
     loadclick() {
       startWaiting();
@@ -406,10 +403,10 @@ export default {
       console.log("App: formatData:",data,"field:",field);
       if(field.name=="gender") {
         if("M"==data) {
-          //return this.label.male_label; //"Male";
+          //return this.labels.male_label; //"Male";
           return '<em class="fa fa-male"></em>';
         } else if("F"==data) {
-          //return this.label.female_label; //"Female";
+          //return this.labels.female_label; //"Female";
           return '<em class="fa fa-female"></em>';
         } else return data;  
       }
