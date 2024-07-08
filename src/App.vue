@@ -141,7 +141,7 @@ import InputTime from './controls/InputTime.vue';
 import InputNumber from './controls/InputNumber.vue';
 import InputMoney from './controls/InputMoney.vue';
 import InputMask from './controls/InputMask.vue';
-import { DEFAULT_CONTENT_TYPE, API_URL }  from './assets/apputil.js';
+import { DEFAULT_CONTENT_TYPE, getApiUrl }  from './assets/apputil.js';
 import { getLabelModel } from "./assets/labelutil.js";
 import { Paging } from "./assets/Paging.js";
 
@@ -252,7 +252,7 @@ export default {
     loadclick() {
       startWaiting();
       $.ajax({
-        url: API_URL+"/api/fetch/time",
+        url: getApiUrl()+"/api/fetch/time",
         type: "POST",
         dataType: "html",
         contentType: DEFAULT_CONTENT_TYPE,
@@ -273,7 +273,7 @@ export default {
         Object.assign(jsondata,this.localData);
         startWaiting();
         $.ajax({
-          url: API_URL+"/api/demo002/insert",
+          url: getApiUrl()+"/api/demo002/insert",
           data: jsondata,
           type: "POST",
           dataType: "html",
@@ -298,7 +298,7 @@ export default {
       Object.assign(jsondata,keysets);
       startWaiting();
       $.ajax({
-        url: API_URL+"/api/demo002/retrieve",
+        url: getApiUrl()+"/api/demo002/retrieve",
         data: jsondata,
         type: "POST",
         dataType: "json",
@@ -327,7 +327,7 @@ export default {
         Object.assign(jsondata,this.localData);
         startWaiting();
         $.ajax({
-          url: API_URL+"/api/demo002/update",
+          url: getApiUrl()+"/api/demo002/update",
           data: jsondata,
           type: "POST",
           dataType: "html",
@@ -361,7 +361,7 @@ export default {
       Object.assign(jsondata,criterias);
       startWaiting();
       $.ajax({
-        url: API_URL+"/api/demo002/collect",
+        url: getApiUrl()+"/api/demo002/collect",
         data: jsondata,
         type: "POST",
         dataType: "json",
