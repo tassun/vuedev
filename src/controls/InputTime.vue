@@ -3,8 +3,8 @@
 </template>
 <script>
 import $ from "jquery";
-import { getControlClasses }  from '@/assets/ctrlutil.js'
-import { randomNumber }  from '@/assets/randomutil.js'
+import { getControlClasses }  from '@/assets/js/ctrlutil.js'
+import { randomNumber }  from '@/assets/js/randomutil.js'
 
 export default {
   props: {

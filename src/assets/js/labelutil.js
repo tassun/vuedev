@@ -1,7 +1,7 @@
 import { DEFAULT_LANGUAGE } from "./apputil";
 
-import default_labels from './json/default_label.json';
-import program_labels from './json/program_label.json';
+import default_labels from '../json/default_label.json';
+import program_labels from '../json/program_label.json';
 
 export function getLabel(name, defaultLabel, lang = DEFAULT_LANGUAGE) {
     let result = undefined;

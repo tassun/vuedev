@@ -6,8 +6,8 @@
 </style>
 <script>
 import $ from "jquery";
-import { getControlClasses, checkInputKey, checkInputNumberOnly, formatFloating }  from '@/assets/ctrlutil.js'
-import { randomNumber }  from '@/assets/randomutil.js'
+import { getControlClasses, checkInputKey, checkInputNumberOnly, formatFloating }  from '@/assets/js/ctrlutil.js'
+import { randomNumber }  from '@/assets/js/randomutil.js'
 
 export default {
   props: {

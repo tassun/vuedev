@@ -19,7 +19,7 @@ import "./assets/css/component.css";
 import "./assets/css/base_style.css";
 import "./assets/css/program_style.css";
 import "./assets/css/user_style.css";
-import "./assets/appinfo.js";
+import "./assets/js/appinfo.js";
 import { createApp, version } from 'vue';
 import App from './App.vue';
 console.log("Vue version",version);

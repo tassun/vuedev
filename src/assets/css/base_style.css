@@ -371,5 +371,5 @@ a:hover { text-decoration: none; }
 .btn-ctrl { margin-top: 10px; margin-right: 10px; min-width: 100px; }
 .btn-span { padding-left: 5px; }
 .img-lang { width: 30px; height: 15px; }
-.img-lang-EN { background-image: url(../img/lang/EN.png); }
-.img-lang-TH { background-image: url(../img/lang/TH.png); }
+.img-lang-EN { content: url(../img/lang/EN.png); }
+.img-lang-TH { content: url(../img/lang/TH.png); }

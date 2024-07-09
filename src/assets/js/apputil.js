@@ -1,7 +1,8 @@
 import $ from "jquery"
 import bootbox from "bootbox"
 import { getMessageCode } from "./msgutil"
-import { openCalendar, clearCalendar, inputNumberOnly, checkInputKey, checkInputNumberOnly } from "./ctrlutil"
+import { getAccessorToken, setMessagingCallback } from "./messenger";
+import { getDefaultRawParameters, getDefaultLanguage } from "./appinfo";
 
 export function startWaiting() { 
 	try{
@@ -232,7 +233,7 @@ export function confirmRevise(params, okFn, cancelFn, addonmsg) {
 
 var mouseX = 0;
 var mouseY = 0;
-export function startApplication(pid) {
+export function startApplication(pid,callback) {
 	console.log("startApplication: pid="+pid);
 	$(document).on("mousedown",function(e) { mouseX = e.pageX; mouseY = e.pageY; });
 	//disable bootstrap modal auto close when click outside and ESC key
@@ -241,47 +242,69 @@ export function startApplication(pid) {
 		$.fn.modal.Constructor.Default.backdrop = "static";
 		$.fn.modal.Constructor.Default.keyboard = false;
 	} catch(ex) { console.error(ex);  }
+	setMessagingCallback(callback);
 }
-export function setupScreenControls(aform) {
-	console.log("setupScreenControls ...");
-	$("input[type=text]",aform||document).each(function(index,element) { 
-		let $this = $(element);
-		if(!$this.hasClass("ivue")) {
-			try { if($this.attr("picture")) { $this.mask($this.attr("picture")); } }catch(ex) { console.error(ex); }
+export function serializeParameters(parameters, addonParameters, raw) {
+	if(addonParameters) {
+		Object.assign(parameters,addonParameters);
+	}
+	let jsondata = { };
+	let cipherdata = false;
+	if(raw || getDefaultRawParameters()) {
+		jsondata = parameters;
+	} else {
+		let dh = getDH();
+		if(dh) {
+			cipherdata = true;
+			jsondata.ciphertext = dh.encrypt(JSON.stringify(parameters));
+		} else {
+			jsondata = parameters;
 		}
-	});			
-	$("input[type=text].itime",aform||document).each(function(index,element) { 
-		let $this = $(element);
-		if(!$this.hasClass("ivue")) {
-			$this.clockpicker({ align: "left", autoclose: true, donetext: "Done", cleartext: "Clear", 
-				afterDone: function() {
-					element.dispatchEvent(new Event('select')); 
-					let fn = $(element).data("afterSelectTimePicker");
-					if(fn) fn(element);
-				} 
-			});
+	}
+	console.log("serialize: parameters",parameters);
+	console.log("serialize: jsondata",jsondata);
+	let token = getAccessorToken();
+	return { cipherdata: cipherdata, jsondata: jsondata, headers : { "authtoken" : token, "data-type": cipherdata?"json/cipher":"", language: getDefaultLanguage() } };
+}
+export function decryptCipherData(headers, data) {
+	let accepttype = headers["accept-type"];
+	let dh = getDH();
+	if(accepttype=="json/cipher") {
+		let json = JSON.parse(data);
+		if(dh && json.body.data && typeof json.body.data === "string") {
+			let jsondatatext = dh.decrypt(json.body.data);
+			console.log("jsondatatext",jsondatatext);
+			let jsondata = JSON.parse(jsondatatext);
+			json.body = jsondata;
+			return json;
 		}
-	});
-	$("input[type=text].idate",aform||document).each(function(index,element) { 
-		let $this = $(element);
-		if(!$this.hasClass("ivue")) {
-			let id = $this.attr("id");
-			$("#LK"+id).on("click",function() { openCalendar(document.getElementById(id)); });
-			$("#CLR"+id).on("click",function() { clearCalendar(document.getElementById(id)); });
+	}
+	if(accepttype=="text/cipher") {
+		let jsontext = dh.decrypt(data);
+		console.log("jsontext",jsontext);
+		if(jsontext) {
+			let json = JSON.parse(jsontext);
+			return json;
 		}
-	});
-	$("input[type=text].iint",aform||document).each(function(index,element) { 
-		let $this = $(element);
-		if(!$this.hasClass("ivue")) {
-			$this.on("keypress",function(event) { return inputNumberOnly(this,event); });
-		}
-	});
-	$("input[type=text].imoney",aform||document).each(function(index,element) { 
-		let $this = $(element);
-		if(!$this.hasClass("ivue")) {
-			let decimal = $this.attr("decimal");
-			$this.on("keyup",function(event) { return checkInputKey(this,event,decimal,null); });
-			$this.on("keypress",function(event) { return checkInputNumberOnly(this,event,decimal); });
-		}
-	});
+	}
+	return data;
+}
+function getDH() {
+	/*
+    let json = getAccessorInfo();
+    if(json && json.info) {
+        let info = json.info;
+        if(info.prime && info.generator && info.publickey && info.privatekey && info.sharedkey && info.otherpublickey) {
+            const dh = new DH();
+            dh.prime = info.prime;
+            dh.generator = info.generator;
+            dh.otherPublicKey = info.publickey;
+            dh.privateKey = info.privatekey;
+            dh.publicKey = info.publickey;
+            dh.sharedKey = info.sharedkey;
+            dh.otherPublicKey = info.otherpublickey;
+            return dh;
+        }
+    }*/
+    return null;
 }

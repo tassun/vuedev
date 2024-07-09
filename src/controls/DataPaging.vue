@@ -16,7 +16,7 @@
 </template>
 <script>
 import { ref } from 'vue';
-import { Paging } from "@/assets/Paging.js";
+import { Paging } from "@/assets/js/Paging.js";
 
 export default {
   props: {

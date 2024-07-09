@@ -2,11 +2,7 @@
 <template>
   <div id="fswaitlayer" class="fa fa-spinner fa-spin"></div>
   <div class="pt-page pt-page-current pt-page-controller search-pager">
-    <PageHeader ref="pageHeader" :labels="labels" pid="demo002" version="1.0.0" @show-version="showVersion">
-      <li><a href="javascript:void(0)" @click="changeLanguage('EN')" class="pagemenu-linker"><img class="img-lang img-lang-EN" />&nbsp;{{ labels.english_lang }}</a></li>
-      <li><a href="javascript:void(0)" @click="changeLanguage('TH')" class="pagemenu-linker"><img class="img-lang img-lang-TH" />&nbsp;{{ labels.thai_lang }}</a></li>
-      <hr class="menu-separator"/>
-    </PageHeader>
+    <PageHeader ref="pageHeader" :labels="labels" pid="demo002" version="1.0.0" @show-version="showVersion" showLanguage="true" @language-changed="changeLanguage" />
     <p>Child Form</p>
     <InputFields ref="inputFields" :labels="labels" :formData="formData" :dataCategory="dataCategory" @update:formData="updateFormData" />
     <div class="row">
@@ -134,16 +130,17 @@ import InputFields from './components/InputFields.vue';
 import PageHeader from './controls/PageHeader.vue';
 import DataTable from './controls/DataTable.vue';
 import DataPaging from "./controls/DataPaging.vue";
-import { DEFAULT_CONTENT_TYPE, getApiUrl }  from './assets/appinfo.js';
-import { startWaiting, stopWaiting, submitFailure, alertDialog, confirmDialog, startApplication }  from './assets/apputil.js'
-import { confirmUpdate, confirmSave, successbox } from './assets/apputil.js'
+import { DEFAULT_CONTENT_TYPE, getApiUrl }  from './assets/js/appinfo.js';
+import { startWaiting, stopWaiting, submitFailure, alertDialog, confirmDialog, startApplication }  from './assets/js/apputil.js'
+import { confirmUpdate, confirmSave, successbox, serializeParameters } from './assets/js/apputil.js'
 import InputDate from './controls/InputDate.vue';
 import InputTime from './controls/InputTime.vue';
 import InputNumber from './controls/InputNumber.vue';
 import InputMoney from './controls/InputMoney.vue';
 import InputMask from './controls/InputMask.vue';
-import { getLabelModel } from "./assets/labelutil.js";
-import { Paging } from "./assets/Paging.js";
+import { getLabelModel } from "./assets/js/labelutil.js";
+import { Paging } from "./assets/js/Paging.js";
+import { requestAccessorInfo } from "./assets/js/messenger.js";
 
 export default {
   components: {
@@ -205,8 +202,10 @@ export default {
   },
   mounted() {
     console.log("App: on mounted ...");
-    this.$nextTick(function () {
+    this.$nextTick(() => {
       startApplication();
+      let reply = requestAccessorInfo(this.messagingHandler);
+      console.log("request access info: ",reply);
     });
   },
   methods: {
@@ -270,11 +269,12 @@ export default {
     saveclick() {
       confirmSave(() => {
         let jsondata = {ajax: true};
-        Object.assign(jsondata,this.localData);
+        let formdata = serializeParameters(jsondata,this.localData);
         startWaiting();
         $.ajax({
           url: getApiUrl()+"/api/demo002/insert",
-          data: jsondata,
+          data: formdata.jsondata,
+          headers : formdata.headers,
           type: "POST",
           dataType: "html",
           contentType: DEFAULT_CONTENT_TYPE,
@@ -295,11 +295,12 @@ export default {
     },
     retrieving(keysets) {
       let jsondata = {ajax: true};
-      Object.assign(jsondata,keysets);
+      let formdata = serializeParameters(jsondata,keysets);
       startWaiting();
       $.ajax({
         url: getApiUrl()+"/api/demo002/retrieve",
-        data: jsondata,
+        data: formdata.jsondata,
+        headers : formdata.headers,
         type: "POST",
         dataType: "json",
         contentType: DEFAULT_CONTENT_TYPE,
@@ -324,11 +325,12 @@ export default {
     updateclick() {
       confirmUpdate(() => { 
         let jsondata = {ajax: true};
-        Object.assign(jsondata,this.localData);
+        let formdata = serializeParameters(jsondata,this.localData);
         startWaiting();
         $.ajax({
           url: getApiUrl()+"/api/demo002/update",
-          data: jsondata,
+          data: formdata.jsondata,
+          headers : formdata.headers,
           type: "POST",
           dataType: "html",
           contentType: DEFAULT_CONTENT_TYPE,
@@ -358,11 +360,12 @@ export default {
     collecting(options,criterias) {
       console.log("collecting: options",options,", criteria",criterias);
       let jsondata = Object.assign({ajax: true},options);
-      Object.assign(jsondata,criterias);
+      let formdata = serializeParameters(jsondata,criterias);
       startWaiting();
       $.ajax({
         url: getApiUrl()+"/api/demo002/collect",
-        data: jsondata,
+        data: formdata.jsondata,
+        headers : formdata.headers,
         type: "POST",
         dataType: "json",
         contentType: DEFAULT_CONTENT_TYPE,

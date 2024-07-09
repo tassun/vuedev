@@ -38,7 +38,7 @@
 </template>
 <script>
 import { ref } from 'vue';
-import { Paging } from "../assets/pageutil.js";
+import { Paging } from "../assets/js/Paging.js";
 
 export default {
   props: {

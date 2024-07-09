@@ -59,8 +59,8 @@
 </template>
 <script>
 import { ref } from 'vue';
-import { Paging } from "@/assets/Paging.js";
-import { ensureTableSetting, formatDataTable } from "@/assets/ctrlutil.js";
+import { Paging } from "@/assets/js/Paging.js";
+import { ensureTableSetting, formatDataTable } from "@/assets/js/ctrlutil.js";
 
 /*
 const tableSettings = {

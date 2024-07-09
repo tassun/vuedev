@@ -6,6 +6,11 @@
           <li class="dropdown user-dropdown"><A href="javascript:void(0)" class="program-linker dropdown-toggle" data-toggle="dropdown"><span>{{ pageId }}</span></A>
             <ul class="dropdown-menu dropdown-menu-right page-header-menu" v-if="displayMenu">
               <slot></slot>
+              <template v-if="displayLanguage">
+              <li><a href="javascript:void(0)" @click="changeLanguage('EN')" class="pagemenu-linker"><img class="img-lang img-lang-EN" />&nbsp;<span :class="{'item-selected' : currentLanguage == 'EN'}">{{ labels.english_lang }}</span></a></li>
+              <li><a href="javascript:void(0)" @click="changeLanguage('TH')" class="pagemenu-linker"><img class="img-lang img-lang-TH" />&nbsp;<span :class="{'item-selected' : currentLanguage == 'TH'}">{{ labels.thai_lang }}</span></a></li>
+              </template>
+              <hr class="menu-separator" v-show="displayVersion && displayLanguage"/>
               <li v-if="displayVersion"><A href="javascript:void(0)" @click="showVersion" class="pagemenu-linker"><em class="fa fa-info-circle fa-class" aria-hidden="true"></em>&nbsp;<span>{{ labels.version_label }} {{ version }}</span></A></li>
             </ul>
           </li>
@@ -13,8 +18,12 @@
     </nav>
 </div>
 </template>
+<style>
+.item-selected { text-decoration: underline; }
+</style>
 <script>
-import { Utilities } from '@/assets/Utilities';
+import { ref } from "vue";
+import { Utilities } from '@/assets/js/Utilities';
 
 export default {
   props: {
@@ -27,20 +36,37 @@ export default {
     viewVersion: {
       type: Boolean,
       default: true,
-    }
+    },
+    showLanguage: {
+      type: Boolean,
+      default: false,
+    },
+    language: {
+      type: String,
+      default: "EN",
+    },
   },
-  emits: ["show-version"],
+  emits: ["show-version","language-changed"],
+  setup(props) {
+    const currentLanguage = ref(props.language && props.language.trim().length > 0 ? props.language : "EN");
+    return { currentLanguage };
+  },
   computed: {
     pageId() { return this.$props.pid.toUpperCase(); },
     displayVersion() { return Utilities.parseBoolean(this.$props.viewVersion); },
+    displayLanguage() { return Utilities.parseBoolean(this.$props.showLanguage); },
     displayMenu() { 
-      return this.$slots.default || this.displayVersion;
+      return this.$slots.default || this.displayVersion || this.displayLanguage;
     },
   },
   methods: {
     showVersion() {
       console.log("show version: "+this.$props.pid);
       this.$emit('show-version', this.$props.pid);
+    },
+    changeLanguage(lang) {
+      this.currentLanguage = lang;
+      this.$emit('language-changed', lang);
     }
   },
 };

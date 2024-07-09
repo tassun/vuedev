@@ -1,6 +1,6 @@
 import { DEFAULT_LANGUAGE } from "./apputil";
 
-import messages from './json/smart_message.json';
+import messages from '../json/smart_message.json';
 
 export function getMessageCode(errcode, params, defaultMessage) {
     if(errcode && errcode.trim().length>0) {

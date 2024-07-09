@@ -7,7 +7,7 @@ module.exports = defineConfig({
   pages: {
     index: {
       entry: 'src/main.js',
-      title: 'VueDEV',
+      title: 'Vue Dev',
       //filename: 'demo002.html', //this can override by setting indexPath
     }
   },

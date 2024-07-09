@@ -4,6 +4,7 @@ var BASE_URL = process.env.VUE_APP_BASE_URL;
 var CDN_URL = process.env.VUE_APP_CDN_URL;
 var BASE_STORAGE = process.env.VUE_APP_BASE_STORAGE;
 var API_TOKEN;
+var DEFAULT_RAW_PARAMETERS = false;
 export const DEFAULT_CONTENT_TYPE = "application/x-www-form-urlencoded; charset=UTF-8";
 console.log("DEFAULT_LANGUAGE="+DEFAULT_LANGUAGE);
 console.log("API_URL="+API_URL);
@@ -20,8 +21,10 @@ export function getApiUrl() { return API_URL; }
 export function getBaseUrl() { return BASE_URL; }
 export function getCdnUrl() { return CDN_URL; }
 export function getBaseStorage() { return BASE_STORAGE; }
+export function getDefaultRawParameters() { return DEFAULT_RAW_PARAMETERS; }
 export function setApiToken(value) { API_TOKEN = value; }
 export function setApiUrl(value) { API_URL = value; }
 export function setBaseUrl(value) { BASE_URL = value; }
 export function setCdnUrl(value) { CDN_URL = value; }
 export function setBaseStorage(value) { BASE_STORAGE = value; }
+export function setDefaultRawParameters(value) { DEFAULT_RAW_PARAMETERS = value; }
