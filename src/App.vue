@@ -134,6 +134,7 @@ import InputFields from './components/InputFields.vue';
 import PageHeader from './controls/PageHeader.vue';
 import DataTable from './controls/DataTable.vue';
 import DataPaging from "./controls/DataPaging.vue";
+import { DEFAULT_CONTENT_TYPE, getApiUrl }  from './assets/appinfo.js';
 import { startWaiting, stopWaiting, submitFailure, alertDialog, confirmDialog, startApplication }  from './assets/apputil.js'
 import { confirmUpdate, confirmSave, successbox } from './assets/apputil.js'
 import InputDate from './controls/InputDate.vue';
@@ -141,7 +142,6 @@ import InputTime from './controls/InputTime.vue';
 import InputNumber from './controls/InputNumber.vue';
 import InputMoney from './controls/InputMoney.vue';
 import InputMask from './controls/InputMask.vue';
-import { DEFAULT_CONTENT_TYPE, getApiUrl }  from './assets/apputil.js';
 import { getLabelModel } from "./assets/labelutil.js";
 import { Paging } from "./assets/Paging.js";
 
