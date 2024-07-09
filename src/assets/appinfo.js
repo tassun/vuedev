@@ -20,3 +20,8 @@ export function getApiUrl() { return API_URL; }
 export function getBaseUrl() { return BASE_URL; }
 export function getCdnUrl() { return CDN_URL; }
 export function getBaseStorage() { return BASE_STORAGE; }
+export function setApiToken(value) { API_TOKEN = value; }
+export function setApiUrl(value) { API_URL = value; }
+export function setBaseUrl(value) { BASE_URL = value; }
+export function setCdnUrl(value) { CDN_URL = value; }
+export function setBaseStorage(value) { BASE_STORAGE = value; }
