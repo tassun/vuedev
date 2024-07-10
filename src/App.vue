@@ -2,7 +2,10 @@
 <template>
   <div id="fswaitlayer" class="fa fa-spinner fa-spin"></div>
   <div class="pt-page pt-page-current pt-page-controller search-pager">
-    <PageHeader ref="pageHeader" :labels="labels" pid="demo002" version="1.0.0" @show-version="showVersion" showLanguage="true" @language-changed="changeLanguage" />
+    <PageHeader ref="pageHeader" :labels="labels" pid="demo002" version="1.0.0" @show-version="showVersion" showLanguage="true" @language-changed="changeLanguage">
+      <li><a href="javascript:void(0)" @click="customMenu()" class="pagemenu-linker">Custom Menu</a></li>
+      <hr class="menu-separator"/>
+    </PageHeader>
     <p>Child Form</p>
     <InputFields ref="inputFields" :labels="labels" :formData="formData" :dataCategory="dataCategory" @update:formData="updateFormData" />
     <div class="row">
@@ -209,6 +212,12 @@ export default {
     });
   },
   methods: {
+    messagingHandler(data) {
+      console.log("messagingHandler: data",data);
+    },
+    customMenu() {
+      console.log("custom menu click");
+    },
     updateFormData(newData) {
       console.log("App: updateFormData",newData);
       console.log("App: updateFormData",JSON.stringify(newData));
