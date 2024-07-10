@@ -7,8 +7,7 @@
             <ul class="dropdown-menu dropdown-menu-right page-header-menu" v-if="displayMenu">
               <slot></slot>
               <template v-if="displayLanguage">
-              <li><a href="javascript:void(0)" @click="changeLanguage('EN')" class="pagemenu-linker"><img class="img-lang img-lang-EN" />&nbsp;<span :class="{'item-selected' : currentLanguage == 'EN'}">{{ labels.english_lang }}</span></a></li>
-              <li><a href="javascript:void(0)" @click="changeLanguage('TH')" class="pagemenu-linker"><img class="img-lang img-lang-TH" />&nbsp;<span :class="{'item-selected' : currentLanguage == 'TH'}">{{ labels.thai_lang }}</span></a></li>
+              <li v-for="item in multiLanguages" :key="item.lang"><a href="javascript:void(0)" @click="changeLanguage(item.lang)" class="pagemenu-linker"><img class="img-lang" :class="'img-lang-' + item.lang" />&nbsp;<span :class="{'item-selected' : currentLanguage == item.lang}">{{ labels[item.label] }}</span></a></li>
               </template>
               <hr class="menu-separator" v-show="displayVersion && displayLanguage"/>
               <li v-if="displayVersion"><A href="javascript:void(0)" @click="showVersion" class="pagemenu-linker"><em class="fa fa-info-circle fa-class" aria-hidden="true"></em>&nbsp;<span>{{ labels.version_label }} {{ version }}</span></A></li>
@@ -40,6 +39,10 @@ export default {
     showLanguage: {
       type: Boolean,
       default: false,
+    },
+    multiLanguages: {
+      type: Array,
+      default() { return [{lang:"EN", label: "english_lang"}, {lang:"TH", label: "thai_lang"}]; },
     },
     language: {
       type: String,
