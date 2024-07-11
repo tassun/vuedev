@@ -1,4 +1,4 @@
-import { getApiUrl, getBaseUrl, getApiToken, getBaseStorage, setApiUrl, setBaseUrl, setApiToken  } from "./appinfo.js";
+import { getApiUrl, getBaseUrl, getCdnUrl, getDefaultLanguage, getApiToken, getBaseStorage, setApiUrl, setBaseUrl, setCdnUrl, setDefaultLanguage, setApiToken  } from "./appinfo.js";
 import { DH } from "./dh.js";
 
 var messagingCallback;
@@ -49,7 +49,7 @@ export function removeAccessorInfo() {
 }
 export function sendMessageInterface() {
 	let info = getAccessorInfo();
-	let msg = {type: "storage", API_URL: getApiUrl(), BASE_URL: getBaseUrl(), API_TOKEN: getApiToken(), accessorinfo: info};
+	let msg = {type: "storage", API_URL: getApiUrl(), BASE_URL: getBaseUrl(), CDN_URL: getCdnUrl(), DEFAULT_LANGUAGE: getDefaultLanguage(), API_TOKEN: getApiToken(), accessorinfo: info};
 	return sendMessageToFrame(msg);
 }
 export function sendMessageToFrame(data) {
@@ -80,6 +80,8 @@ export function handleRequestMessage(data) {
     if(data.type=="storage") {
         if(data.API_URL) setApiUrl(data.API_URL);
         if(data.BASE_URL) setBaseUrl(data.BASE_URL);
+        if(data.CDN_URL) setCdnUrl(data.CDN_URL);
+        if(data.DEFAULT_LANGUAGE) setDefaultLanguage(data.DEFAULT_LANGUAGE);
         if(data.API_TOKEN) setApiToken(data.API_TOKEN);
         if(data.accessorinfo) {
             saveAccessorInfo(data.accessorinfo);
