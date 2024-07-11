@@ -4,6 +4,100 @@ import { getMessageCode } from "./msgutil"
 import { getAccessorToken, setMessagingCallback, getDH } from "./messenger";
 import { getDefaultRawParameters, getDefaultLanguage } from "./appinfo";
 
+const fs_winary = new Array();
+export function getWindowByName(winname) {
+	if(!winname) return null;
+	for(let i=0,isz=fs_winary.length;i<isz;i++) {
+		try	{
+			if(fs_winary[i]) {
+				if(fs_winary[i].name == winname) return fs_winary[i];
+			}
+		}catch (ex)	{ console.error(ex); }
+	}
+	return null;
+}
+export function closeChildWindows() {
+	for(let i=0,isz=fs_winary.length;i<isz;i++) {
+		try	{
+			if(fs_winary[i]) fs_winary[i].close();
+		}catch(ex) { console.error(ex); }
+	}
+}
+export function addWindow(awindow) {
+	if(!awindow) return;
+	fs_winary.push(awindow);
+}
+export function submitWindow(settings) {
+	let p = settings;
+	if((p.url && p.url!="") && p.params) {
+		let frm = $("<form method='POST'></form>");
+		frm.attr("action",p.url);
+		frm.attr("target",p.windowName);
+		if(typeof(p.params)==="string") {
+			let prms = p.params.split("&");
+			for(let i=0;i<prms.length;i++) {
+				let kary = prms[i].split("=");
+				let inp = $('<input type="hidden" name="'+kary[0]+'"></input>');
+				inp.val(kary[1]);
+				frm.append(inp);
+			}
+		} else {
+			if(Array.isArray(p.params)) {
+				for(let i=0;i<p.params.length;i++) {
+					let prm = p.params[i];
+					if(prm.name) {
+						let inp = $('<input type="hidden" name="'+prm.name+'"></input>');
+						inp.val(prm.value);
+						frm.append(inp);
+					} 
+				}
+			} else {
+				if(p.params) {
+					for(let prm in p.params) {
+						let inp = $('<input type="hidden" name="'+prm+'"></input>');
+						inp.val(p.params[prm]);
+						frm.append(inp);
+					}
+				}
+			}
+		}
+		let layer = $("<div class='open-new-window-submit-layer'></div>");
+		layer.append(frm);
+		$("body").append(layer);
+		frm.trigger("submit");
+		setTimeout(function() { layer.remove(); },1500);
+	}
+}		 
+export function openNewWindow(settings) {
+	let defaultSettings = {
+		url : "",
+		windowName : "_blank",
+		windowWidth : window.screen.availWidth,
+		windowHeight : window.screen.availHeight,
+		windowFeatures : "toobar=no,menubar=no,location=no,directories=no,status=no,scrollbars=yes,resizable=yes",
+		fullScreen : null,
+		params : null
+	};
+	let p = Object.assign({}, defaultSettings, settings);		
+	try {	 
+		let fswin = getWindowByName(p.winName); 
+		if(fswin) { fswin.focus(); return; }  
+	} catch(ex) { console.error(ex); } 
+	let sw = window.screen.availWidth; 
+	let sh = window.screen.availHeight; 
+	let wx = (sw - p.windowWidth) / 2; 
+	let wy = (sh - p.windowHeight) / 2; 
+	let fs_features = "top="+wy+",left="+wx+",width="+p.windowWidth+",height="+p.windowHeight+","+p.windowFeatures;
+	let fs_window = null;
+	if(p.params) fs_window = window.open("",p.windowName,fs_features); 
+	else fs_window = window.open(p.url,p.windowName,fs_features); 
+	fs_window.opener = self; 
+	try {	 
+		addWindow(fs_window); 
+	} catch(ex) { console.error(ex); } 
+	submitWindow(p);
+	return fs_window; 
+} 
 export function startWaiting() { 
 	try{
 		let dc = $(document.body);
@@ -273,7 +367,7 @@ export function decryptCipherData(headers, data) {
 		let json = JSON.parse(data);
 		if(dh && json.body.data && typeof json.body.data === "string") {
 			let jsondatatext = dh.decrypt(json.body.data);
-			console.log("jsondatatext",jsondatatext);
+			console.log("decryptCipherData: jsondatatext",jsondatatext);
 			let jsondata = JSON.parse(jsondatatext);
 			json.body = jsondata;
 			return json;
@@ -281,7 +375,7 @@ export function decryptCipherData(headers, data) {
 	}
 	if(accepttype=="text/cipher") {
 		let jsontext = dh.decrypt(data);
-		console.log("jsontext",jsontext);
+		console.log("decryptCipherData: jsontext",jsontext);
 		if(jsontext) {
 			let json = JSON.parse(jsontext);
 			return json;
