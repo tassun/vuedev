@@ -1,4 +1,5 @@
 import { getApiUrl, getBaseUrl, getApiToken, getBaseStorage, setApiUrl, setBaseUrl, setApiToken  } from "./appinfo.js";
+import { DH } from "./dh.js";
 
 var messagingCallback;
 export function setMessagingCallback(callback) {
@@ -87,10 +88,59 @@ export function handleRequestMessage(data) {
     }
     if(messagingCallback) messagingCallback(data);
 }
+export function setupDiffie(json) {
+	console.log("setupDiffie",getAccessorToken());
+    let info = json.body.info;
+    if(info) {
+        const dh = new DH();
+        dh.prime = info.prime;
+        dh.generator = info.generator;
+        dh.otherPublicKey = info.publickey;
+        dh.compute();
+        dh.updatePublicKey();
+        info.privatekey = dh.privateKey;
+        info.publickey = dh.publicKey;
+        info.sharedkey = dh.sharedKey;
+        info.otherpublickey = dh.otherPublicKey;
+        saveAccessorInfo(json.body);
+    }
+}
+export function getDH() {
+    let json = getAccessorInfo();
+    if(json && json.info) {
+        let info = json.info;
+        if(info.prime && info.generator && info.publickey && info.privatekey && info.sharedkey && info.otherpublickey) {
+            const dh = new DH();
+            dh.prime = info.prime;
+            dh.generator = info.generator;
+            dh.otherPublicKey = info.publickey;
+            dh.privateKey = info.privatekey;
+            dh.publicKey = info.publickey;
+            dh.sharedKey = info.sharedkey;
+            dh.otherPublicKey = info.otherpublickey;
+            return dh;
+        }
+    }
+    return null;
+}
+/* this for child window */
 window.onmessage = function(e) {
     console.log("interface: onmessage:",e.data);
     try {
-        let payload = JSON.parse(e.data);
+        let payload = e.data;
+        if(typeof payload === 'string') { payload = JSON.parse(e.data); }
         handleRequestMessage(payload);
     } catch(ex) { console.log(ex); }
 }
+/* this for parent window */
+/*
+window.onmessage = function(e) {
+    console.log("main: onmessage:",e.data);
+    try {
+        let payload = e.data;
+        if(typeof payload === 'string') { payload = JSON.parse(e.data); }
+        if(payload.type=="accessorinfo") {					
+            sendMessageInterface();
+        }
+    } catch(ex) { console.error(ex); }
+}*/

@@ -1,7 +1,7 @@
 import $ from "jquery"
 import bootbox from "bootbox"
 import { getMessageCode } from "./msgutil"
-import { getAccessorToken, setMessagingCallback } from "./messenger";
+import { getAccessorToken, setMessagingCallback, getDH } from "./messenger";
 import { getDefaultRawParameters, getDefaultLanguage } from "./appinfo";
 
 export function startWaiting() { 
@@ -288,23 +288,4 @@ export function decryptCipherData(headers, data) {
 		}
 	}
 	return data;
-}
-function getDH() {
-	/*
-    let json = getAccessorInfo();
-    if(json && json.info) {
-        let info = json.info;
-        if(info.prime && info.generator && info.publickey && info.privatekey && info.sharedkey && info.otherpublickey) {
-            const dh = new DH();
-            dh.prime = info.prime;
-            dh.generator = info.generator;
-            dh.otherPublicKey = info.publickey;
-            dh.privateKey = info.privatekey;
-            dh.publicKey = info.publickey;
-            dh.sharedKey = info.sharedkey;
-            dh.otherPublicKey = info.otherpublickey;
-            return dh;
-        }
-    }*/
-    return null;
 }
