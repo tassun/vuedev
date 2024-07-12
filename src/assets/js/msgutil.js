@@ -1,10 +1,10 @@
-import { DEFAULT_LANGUAGE } from "./apputil";
+import { getDefaultLanguage } from "./appinfo";
 
 import messages from '../json/smart_message.json';
 
 export function getMessageCode(errcode, params, defaultMessage) {
     if(errcode && errcode.trim().length>0) {
-        let lang = DEFAULT_LANGUAGE;
+        let lang = getDefaultLanguage();
         if(!lang || lang.trim().length==0) lang = "EN";
 		let msg = messages.find((item) => { return item.code == errcode; });
 		if(msg) {
