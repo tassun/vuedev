@@ -1,9 +1,9 @@
-import { DEFAULT_LANGUAGE } from "./apputil";
+import { getDefaultLanguage } from "./appinfo";
 
 import default_labels from '../json/default_label.json';
 import program_labels from '../json/program_label.json';
 
-export function getLabel(name, defaultLabel, lang = DEFAULT_LANGUAGE) {
+export function getLabel(name, defaultLabel, lang = getDefaultLanguage()) {
     let result = undefined;
     if(!lang || lang.trim().length==0) lang = "EN";
     let label_item = getLabelItem(name,lang,program_labels);
@@ -28,7 +28,7 @@ export function getLabelItem(name, lang, label_category) {
     return undefined;
 }
 
-export function getLabelObject(lang = DEFAULT_LANGUAGE, label_category) {
+export function getLabelObject(lang = getDefaultLanguage(), label_category) {
     if(!lang || lang.trim().length==0) lang = "EN";
     let lang_item = label_category.find((item) => { return item.language == lang; });
     if(lang_item) {
@@ -37,7 +37,7 @@ export function getLabelObject(lang = DEFAULT_LANGUAGE, label_category) {
     return undefined;
 }
 
-export function getLabelModel(lang = DEFAULT_LANGUAGE) {
+export function getLabelModel(lang = getDefaultLanguage()) {
     let default_item = getLabelObject(lang, default_labels);
     let program_item = getLabelObject(lang, program_labels);
     let default_model = {};
