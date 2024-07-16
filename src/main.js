@@ -1,7 +1,8 @@
+//this make global access jquery (browser console can references)
 import jquery from 'jquery';
 window.jQuery = jquery;
 window.$ = jquery;
-//import 'jquery';
+//import 'jquery'; //this make private access jquery (browser console cannot references)
 import "jquery-ui";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "jquery-ui-dist/jquery-ui.css";
