@@ -1,7 +1,7 @@
 import $ from "jquery"
 import bootbox from "bootbox"
 import { getMessageCode } from "./msgutil"
-import { getAccessorToken, setMessagingCallback, getDH } from "./messenger";
+import { getAccessorToken, requestAccessorInfo, getDH } from "./messenger";
 import { getDefaultRawParameters, getDefaultLanguage } from "./appinfo";
 
 const fs_winary = new Array();
@@ -30,7 +30,8 @@ export function addWindow(awindow) {
 export function submitWindow(settings) {
 	let p = settings;
 	if((p.url && p.url!="") && p.params) {
-		let frm = $("<form method='POST'></form>");
+		let method = p.method || "POST";
+		let frm = $("<form method='"+method+"'></form>");
 		frm.attr("action",p.url);
 		frm.attr("target",p.windowName);
 		if(typeof(p.params)==="string") {
@@ -70,6 +71,7 @@ export function submitWindow(settings) {
 }		 
 export function openNewWindow(settings) {
 	let defaultSettings = {
+		method: "POST",
 		url : "",
 		windowName : "_blank",
 		windowWidth : window.screen.availWidth,
@@ -336,7 +338,11 @@ export function startApplication(pid,callback) {
 		$.fn.modal.Constructor.Default.backdrop = "static";
 		$.fn.modal.Constructor.Default.keyboard = false;
 	} catch(ex) { console.error(ex);  }
-	setMessagingCallback(callback);
+	if(callback) setupApplication(callback);
+}
+export function setupApplication(callback) {
+	let reply = requestAccessorInfo(callback);
+	console.log("request access info: ",reply);
 }
 export function serializeParameters(parameters, addonParameters, raw) {
 	if(addonParameters) {
@@ -355,11 +361,11 @@ export function serializeParameters(parameters, addonParameters, raw) {
 			jsondata = parameters;
 		}
 	}
-	console.log("serialize: parameters",parameters);
-	console.log("serialize: jsondata",jsondata);
+	console.log("serialize: parameters",JSON.stringify(parameters));
+	console.log("serialize: jsondata",JSON.stringify(jsondata));
 	let token = getAccessorToken();
 	let headers = { "authtoken" : token, "data-type": cipherdata?"json/cipher":"", language: getDefaultLanguage() };
-	console.log("serialize: headers",headers);
+	//console.log("serialize: headers",JSON.stringify(headers));
 	return { cipherdata: cipherdata, jsondata: jsondata, headers : headers };
 }
 export function decryptCipherData(headers, data) {
