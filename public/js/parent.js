@@ -126,13 +126,16 @@ function handleRequestMessage(data) {
 }
 window.onmessage = function(e) {
     console.log("main: onmessage:",e.data);
+    document.getElementById("texts").value = e.data;
     try {
-        let payload = JSON.parse(e.data);
+        let payload = e.data;
+        if(typeof payload === 'string') { payload = JSON.parse(e.data); }
         if(payload.type=="accessorinfo") {					
             sendMessageInterface(currentNewWindow);
+            return;
         }
+        handleRequestMessage(payload);
     } catch(ex) { }
-    document.getElementById("texts").value = e.data;
 }
 function talkToChild() {
     sendMessageInterface();    
