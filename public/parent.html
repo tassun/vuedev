@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="favicon.ico">
-    <title>Main</title>
-    <script src="js/messaging.js"></script>
+    <title>Parent</title>
+    <script src="js/parent.js"></script>
   </head>
   <body>
     <div>
       <button onclick="talkToChild()">Talk To Child Window</button>
+      <button onclick="openNewWindow()">Open New Window</button>
+      <button onclick="talkToWindow()">Talk To New Window</button>
     </div>  
-    <iframe src="demo002.html" style="width:100%; height:800px;"></iframe>
+    <textarea id="texts" cols="50" rows="5"></textarea> 
+    <iframe src="child.html" style="width:100%; height:800px;"></iframe>
   </body>
 </html>
