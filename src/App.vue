@@ -133,15 +133,15 @@ import InputFields from './components/InputFields.vue';
 import PageHeader from './controls/PageHeader.vue';
 import DataTable from './controls/DataTable.vue';
 import DataPaging from "./controls/DataPaging.vue";
-import { DEFAULT_CONTENT_TYPE, getApiUrl }  from './assets/js/appinfo.js';
-import { startWaiting, stopWaiting, submitFailure, alertDialog, confirmDialog, startApplication }  from './assets/js/apputil.js'
-import { confirmUpdate, confirmSave, successbox, serializeParameters } from './assets/js/apputil.js'
+import { DEFAULT_CONTENT_TYPE, getApiUrl }  from './assets/js/app.info.js';
+import { startWaiting, stopWaiting, submitFailure, alertDialog, confirmDialog, startApplication }  from './assets/js/app.util.js'
+import { confirmUpdate, confirmSave, successbox, serializeParameters } from './assets/js/app.util.js'
 import InputDate from './controls/InputDate.vue';
 import InputTime from './controls/InputTime.vue';
 import InputNumber from './controls/InputNumber.vue';
 import InputMoney from './controls/InputMoney.vue';
 import InputMask from './controls/InputMask.vue';
-import { getLabelModel } from "./assets/js/labelutil.js";
+import { getLabelModel } from "./assets/js/label.util.js";
 import { Paging } from "./assets/js/Paging.js";
 import { requestAccessorInfo } from "./assets/js/messenger.js";
 

@@ -1,4 +1,4 @@
-import { getDefaultLanguage } from "./appinfo";
+import { getDefaultLanguage } from "./app.info";
 
 import default_labels from '../json/default_label.json';
 import program_labels from '../json/program_label.json';

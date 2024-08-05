@@ -1,4 +1,4 @@
-import { getDefaultLanguage } from "./appinfo";
+import { getDefaultLanguage } from "./app.info";
 
 import messages from '../json/smart_message.json';
 
